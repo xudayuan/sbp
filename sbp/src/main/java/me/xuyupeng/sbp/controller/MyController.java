@@ -1,13 +1,11 @@
 package me.xuyupeng.sbp.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import me.xuyupeng.sbp.req.NameReq;
 import me.xuyupeng.sbp.res.NameRes;
 import me.xuyupeng.sbp.service.MyService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 一个测试的Controller
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xuyupeng
  * @date 2020/4/11 16:46
  */
+@Slf4j
 @RestController
 @RequestMapping("/xyp")
 public class MyController {
@@ -26,8 +25,16 @@ public class MyController {
 
     @PostMapping(value = "/name", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     NameRes getName(@RequestBody NameReq name) {
+        log.info("getName.......");
         NameRes res = new NameRes();
         res.setName("my name is " + name.getName());
+        return res;
+    }
+    @GetMapping(value = "/who", produces = MediaType.APPLICATION_JSON_VALUE)
+    NameRes who(){
+        log.info("who.....");
+        NameRes res = new NameRes();
+        res.setName("my name is xuyupeng" );
         return res;
     }
 }
