@@ -1,3 +1,9 @@
 server:
   address: 127.0.0.1
   port: 8080
+spring:
+  redis:
+    host: 39.107.141.94
+    port: 6379
+    password: redispw
+    database: 0
