@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
+import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,18 +19,17 @@ import org.springframework.util.StringUtils;
 @Setter
 @Configuration
 public class RedissonConfig {
-    @Value("spring.redis.host")
+    @Value("${spring.redis.host}")
     private String host;
 
-    @Value("spring.redis.port")
-    private String port;
+    @Value("${spring.redis.port}")
+    private Integer port;
 
-    @Value("spring.redis.password")
+    @Value("${spring.redis.password}")
     private String passwd;
 
-    @Value("spring.redis.database")
-    private int database;
-
+    @Value("${spring.redis.database}")
+    private Integer database;
     @Bean
     public Config config() {
         String address  = "redis://" + host + ":" + port;
@@ -39,6 +39,7 @@ public class RedissonConfig {
         }else {
             config.useSingleServer().setAddress(address).setPassword(passwd).setDatabase(database);
         }
+        config.setCodec(new JsonJacksonCodec());
         return config;
     }
 
